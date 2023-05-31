@@ -28,13 +28,13 @@ public partial class MainPage : ContentPage
         
     private async void GetAtividades()
     {
-        var httpClient = new HttpClient();
-       using var response = await httpClient.GetAsync(urlBase);
+       var httpClient = new HttpClient();
+      using var response = await httpClient.GetAsync(urlBase);
 
         var json = await response.Content.ReadAsStringAsync();
 
         List<Atividade> objs = JsonConvert.DeserializeObject<List<Atividade>>(json);
-
+        atividades.Clear();
         objs.ForEach(x => atividades.Add(x));
 
 
@@ -48,15 +48,29 @@ public partial class MainPage : ContentPage
 
         await Navigation.PushAsync(new CadastrarPage());
     }
-    private void Deletar(object sender, EventArgs e)
+    private async void Deletar(object sender, EventArgs e)
     {
         Button button = (Button)sender;
         var item = button.CommandParameter as Atividade;
         Debug.WriteLine(item.Id);
         Debug.WriteLine(item.Nome);
         Debug.WriteLine(item.DataFinalizacao);
-        
-       
+        using var client = new HttpClient();
+         // URL do recurso que você deseja excluir
+
+        HttpResponseMessage response = await client.DeleteAsync(urlBase + "/" +item.Id);
+
+        if (response.IsSuccessStatusCode)
+        {
+            await DisplayAlert("sucesso","Recurso excluído com sucesso!","ok");
+            GetAtividades();
+        }
+        else
+        {
+            await DisplayAlert("erro", $"Ocorreu um erro ao excluir o recurso. Código de status: {response.StatusCode}", "ok");
+        }
+
+
 
     }
     private void Editar(object sender, EventArgs e)
