@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Text;
 using System.Text.Json.Serialization;
 using Windows.System;
 
@@ -85,12 +87,40 @@ public partial class MainPage : ContentPage
         await Navigation.PushAsync(new Editar(item.Id));
 
     }
-    private void Finalizar(object sender, EventArgs e)
+    private async void Finalizar(object sender, EventArgs e)
     {
         Button button = (Button)sender;
         var item = button.CommandParameter as Atividade;
         Debug.WriteLine("Finalizar ",item.Id);
-        
+        var data = new
+        {
+
+            
+        };
+        var json = JsonConvert.SerializeObject(data);
+        var content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+        try
+        {
+            var httpClient = new HttpClient();
+            Debug.WriteLine("https://localhost:7037/finalizar/" + item.Id);
+            var response = await httpClient.PutAsync("https://localhost:7037/finalizar/" + item.Id, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await DisplayAlert("Sucesso", "Atividade finalizada", "Ok");
+               
+                await Navigation.PushAsync(new MainPage());
+            }
+            else
+            {
+                await DisplayAlert("Failed", $"Ocorreu um erro na atualização. Código de status: {response.StatusCode}", "Ok");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Ocorreu um erro ao fazer a solicitação PUT: {ex.Message}", "OK");
+        }
+
 
     }
 

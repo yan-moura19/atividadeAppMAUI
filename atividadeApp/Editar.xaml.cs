@@ -39,7 +39,7 @@ public partial class Editar : ContentPage
     }
     public async void EditarClicked(object sender, EventArgs e)
 	{
-        Debug.WriteLine(entNome.Text);
+        
         var httpClient = new HttpClient();
         var data = new
             {
