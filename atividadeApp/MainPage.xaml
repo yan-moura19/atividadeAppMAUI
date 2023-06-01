@@ -2,24 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="atividadeApp.MainPage">
+   
 
-    <ScrollView>
+    <ScrollView >
+        
         <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+            Spacing="2"
+            Padding="3"
+            >
             <Button
                 x:Name="CounterBtn"
                 Text="Adicionar atividade"
                 
                 Clicked="NewClicked"
-                HorizontalOptions="Center" />
+                HorizontalOptions="End" />
 
-                <ListView x:Name="myListView">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                        <ViewCell>
-                        <FlexLayout Direction="Row">
+                <ListView x:Name="myListView" >
+                    <ListView.ItemTemplate >
+                        <DataTemplate >
+                            <ViewCell >
+                                <FlexLayout Direction="Row" >
+                                <StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="Start">
                                 <Label Text="Nome: " Padding="5"/>
                                 <Label Text="{Binding Nome}" Padding="5"/>
                                 <Label Text="Status: " Padding="5"/>
@@ -28,32 +31,15 @@
                                 <Label Text="{Binding DataCadastro}" Padding="5"/>
                                 <Label Text="Data de finalização: " Padding="5"/>
                                 <Label Text="{Binding DataFinalizacao}" Padding="5"/>
-                                <Button
-                                    x:Name="excluirBtn"
-                                    Text="Excluir"
-                                    CommandParameter="{Binding .}"
-                                    Padding="5"
-                
-                                    Clicked="Deletar"
-                                    HorizontalOptions="Center" />
-                                <Button
-                                    x:Name="EditarBtn"
-                                    Padding="5"
-                                    Text="Editar"
-                                    CommandParameter="{Binding .}"
-                
-                                    Clicked="Editar"
-                                    HorizontalOptions="Center" />
-                                <Button
-                                    x:Name="FinalizarBtn"
-                                    Padding="5"
-                                    Text="Finalizar"
-                                    CommandParameter="{Binding .}"
-                
-                                    Clicked="Finalizar"
-                                    HorizontalOptions="Center" />
+                                    </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                                    <Button x:Name="excluirBtn" Text="Excluir" CommandParameter="{Binding .}" Clicked="Deletar" FontSize="16" TextColor="White" BackgroundColor="Red" HorizontalOptions="End"/>
+                                    <Button x:Name="EditarBtn" Text="Editar" CommandParameter="{Binding .}" Clicked="Editar" FontSize="16" TextColor="White" BackgroundColor="DodgerBlue" HorizontalOptions="End" />
+                                    <Button x:Name="FinalizarBtn" Text="Finalizar" CommandParameter="{Binding .}" Clicked="Finalizar" FontSize="16" TextColor="White" BackgroundColor="Green" HorizontalOptions="End" />
+                                    </StackLayout>
 
-                            </FlexLayout>
+
+                                </FlexLayout>
                         </ViewCell>
 
 
@@ -62,9 +48,12 @@
                 </ListView>
             
 
-            
+
+
 
         </VerticalStackLayout>
+      
     </ScrollView>
+    
 
 </ContentPage>
