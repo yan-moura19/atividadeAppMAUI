@@ -73,7 +73,7 @@ public partial class MainPage : ContentPage
 
 
     }
-    private void Editar(object sender, EventArgs e)
+    private async void Editar(object sender, EventArgs e)
     {
         Button button = (Button)sender;
         
@@ -82,6 +82,7 @@ public partial class MainPage : ContentPage
         Debug.WriteLine(item.Id);
         Debug.WriteLine(item.Nome);
         Debug.WriteLine(item.DataFinalizacao);
+        await Navigation.PushAsync(new Editar(item.Id));
 
     }
     private void Finalizar(object sender, EventArgs e)

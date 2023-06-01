@@ -24,7 +24,7 @@ public partial class CadastrarPage : ContentPage
                 dataCadastro = DateTime.Now.ToUniversalTime(),
                 dataFinalizacao = DateTime.MinValue.ToUniversalTime()
             };
-            Console.WriteLine(data.ToString());
+            
 
             var response = await httpClient.PostAsJsonAsync(urlBase, data);
 
